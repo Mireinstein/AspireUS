@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import styles from '../styles/Login.module.css';
+import styles from '../styles/login.module.css';
+import BackgroundSlideshow from '../components/Common/BackgroundSlideshow';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/dashboard'); // Redirect to dashboard on successful login
+      router.push('/dashboard');
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed. Please check your credentials.");
@@ -23,9 +24,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.container}>
-      <video className={styles.videoBackground} autoPlay loop muted playsInline>
-        {/* TODO: slideshow background of US colleges */}
-      </video>
+      <BackgroundSlideshow />
       <div className={styles.overlay}></div>
       <div className={styles.formContainer}>
         <h1>Welcome to AspireUS</h1>

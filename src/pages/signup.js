@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import styles from '../styles/Login.module.css'; // Reuse the same styling
+import styles from '../styles/login.module.css'; // Reusing the same styling for consistency
+import BackgroundSlideshow from '../components/Common/BackgroundSlideshow';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const SignupPage = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push('/dashboard'); // Redirect to dashboard on successful signup
+      router.push('/dashboard');
     } catch (error) {
       console.error("Signup error:", error);
       alert("Signup failed. Please try again.");
@@ -23,9 +24,7 @@ const SignupPage = () => {
 
   return (
     <div className={styles.container}>
-      <video className={styles.videoBackground} autoPlay loop muted playsInline>
-        {/* TODO: slideshow background of US colleges */}
-      </video>
+      <BackgroundSlideshow />
       <div className={styles.overlay}></div>
       <div className={styles.formContainer}>
         <h1>Join AspireUS</h1>
