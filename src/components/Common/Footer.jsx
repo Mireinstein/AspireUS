@@ -4,7 +4,7 @@ import styles from '../../styles/Footer.module.css'; // Create this CSS module l
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p>&copy; {new Date().getFullYear()} aspireus. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} aspireUS. All rights reserved.</p>
     </footer>
   );
 };

@@ -1,30 +1,22 @@
 // src/components/Common/Navbar.jsx
 import Link from 'next/link';
-import styles from '../../styles/Navbar.module.css'; // Create this CSS module later
+import styles from '../../styles/Navbar.module.css';
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <Link href="/">
-          <a>aspireus</a>
-        </Link>
+        <Link href="/">aspireUS</Link>
       </div>
       <ul className={styles.navLinks}>
         <li>
-          <Link href="/dashboard">
-            <a>Dashboard</a>
-          </Link>
+          <Link href="/dashboard">Dashboard</Link>
         </li>
         <li>
-          <Link href="/login">
-            <a>Login</a>
-          </Link>
+          <Link href="/login">Login</Link>
         </li>
         <li>
-          <Link href="/signup">
-            <a>Sign Up</a>
-          </Link>
+          <Link href="/signup">Sign Up</Link>
         </li>
       </ul>
     </nav>
