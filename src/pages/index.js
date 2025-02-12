@@ -1,17 +1,23 @@
 // pages/index.js
 import Head from 'next/head';
-import React from 'react';
+import BackgroundSlideshow from '../components/Common/BackgroundSlideshow';
+import styles from '../styles/home.module.css'; 
 
 export default function Home() {
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
-        <title>AspireUS - Home</title>
-        <meta name="description" content="Welcome to AspireUS, an AI-powered college application platform." />
+        <title>AspireUS - Transform Your Future</title>
+        <meta name="description" content="Streamline your U.S. college applications with our AI-powered platform." />
       </Head>
-      <main>
-        <h1>Welcome to AspireUS</h1>
-        <p>Your journey to a successful college application starts here.</p>
+      <BackgroundSlideshow />
+      <div className={styles.overlay}></div>
+      <main className={styles.mainContent}>
+        <h1 className={styles.title}>Transform Your Future with AspireUS</h1>
+        <p className={styles.subtitle}>
+          Simplify your college application process with our intelligent, AI-powered platform.
+        </p>
+        <a href="/signup" className={styles.ctaButton}>Get Started</a>
       </main>
     </div>
   );
