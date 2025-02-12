@@ -1,12 +1,20 @@
 // src/components/Common/Navbar.jsx
 import Link from 'next/link';
-import styles from '../../styles/Navbar.module.css';
+import Image from 'next/image';
+import styles from '../../styles/navbar.module.css';
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <Link href="/">AspireUS</Link>
+        <Link href="/">
+          <Image 
+            src="/aspireUS.svg" 
+            alt="AspireUS Logo" 
+            width={200}
+            height={75}    
+          />
+        </Link>
       </div>
       <ul className={styles.navLinks}>
         <li>

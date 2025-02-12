@@ -1,10 +1,9 @@
-// pages/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import styles from '../styles/login.module.css';
-import BackgroundSlideshow from '../components/Common/BackgroundSlideshow';
+import BackgroundPhoto from '../components/Common/BackgroundPhoto';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +23,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.container}>
-      <BackgroundSlideshow />
+      <BackgroundPhoto />
       <div className={styles.overlay}></div>
       <div className={styles.formContainer}>
         <h1>Welcome to AspireUS</h1>

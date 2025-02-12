@@ -1,10 +1,9 @@
-// pages/signup.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import styles from '../styles/login.module.css'; // Reusing the same styling for consistency
-import BackgroundSlideshow from '../components/Common/BackgroundSlideshow';
+import BackgroundPhoto from '../components/Common/BackgroundPhoto';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +23,7 @@ const SignupPage = () => {
 
   return (
     <div className={styles.container}>
-      <BackgroundSlideshow />
+      <BackgroundPhoto />
       <div className={styles.overlay}></div>
       <div className={styles.formContainer}>
         <h1>Join AspireUS</h1>
