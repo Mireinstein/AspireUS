@@ -1,13 +1,12 @@
 // pages/_app.js
 import '../styles/globals.css';
 import Head from 'next/head';
-import { AuthProvider } from '../context/AuthContext'; 
-import Navbar from '../components/Common/Navbar';
-import Footer from '../components/Common/Footer';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthProvider>
+    <>
       <Head>
         <link rel="icon" href="/aspireUS.svg" />
       </Head>
@@ -16,7 +15,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </main>
       <Footer />
-    </AuthProvider>
+    </>
   );
 }
 

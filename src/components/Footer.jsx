@@ -1,5 +1,5 @@
 // src/components/Common/Footer.jsx
-import styles from '../../styles/footer.module.css'; // Create this CSS module later
+import styles from '../styles/footer.module.css';
 
 const Footer = () => {
   return (

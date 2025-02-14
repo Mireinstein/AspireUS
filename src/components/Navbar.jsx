@@ -1,7 +1,7 @@
 // src/components/Common/Navbar.jsx
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from '../../styles/navbar.module.css';
+import styles from '../styles/navbar.module.css';
 
 const Navbar = () => {
   return (
@@ -18,13 +18,13 @@ const Navbar = () => {
       </div>
       <ul className={styles.navLinks}>
         <li>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/dashboard">Sign Up</Link>
         </li>
         <li>
-          <Link href="/login">Login</Link>
+          <Link href="/dashboard">Login</Link>
         </li>
         <li>
-          <Link href="/signup">Sign Up</Link>
+          <Link href="/dashboard">About US</Link>
         </li>
       </ul>
     </nav>

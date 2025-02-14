@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import BackgroundPhoto from '../components/Common/BackgroundPhoto';
-import styles from '../styles/home.module.css'; 
+import BackgroundPhoto from '../components/BackgroundPhoto';
+import styles from '../styles/home.module.css';
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
         <p className={styles.subtitle}>
           Simplify your college application process with our intelligent, AI-powered platform.
         </p>
-        <a href="/signup" className={styles.ctaButton}>Get Started</a>
+        <a href="/dashboard" className={styles.ctaButton}>Get Started</a>
       </main>
     </div>
   );
