@@ -1,0 +1,159 @@
+.container {
+    padding: 2rem;
+    background: #f0f4f8;
+    min-height: 100vh;
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Tab Navigation */
+  .tabNavigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .tabButton {
+    background: #ccc;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .activeTab {
+    background: #003366;
+    color: #fff;
+  }
+  
+  /* Students Section */
+  .studentsSection {
+    margin-bottom: 2rem;
+  }
+  
+  .studentsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .studentCard {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chatButton {
+    background-color: #0077cc;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .chatButton:hover {
+    background-color: #005fa3;
+  }
+  
+  /* Meetings Section */
+  .meetingsSection {
+    margin-bottom: 2rem;
+  }
+  
+  .meetingsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .meetingCard {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .meetButton {
+    background-color: #0077cc;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .meetButton:hover {
+    background-color: #005fa3;
+  }
+  
+  /* Services Section */
+  .servicesSection {
+    margin-bottom: 2rem;
+  }
+  
+  .servicesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .serviceCard {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .addServiceButton {
+    background-color: #003366;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .addServiceButton:hover {
+    background-color: #002244;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+  
+  .error {
+    text-align: center;
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+  
+  .noStudents, .noMeetings, .noServices {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+  }
+  

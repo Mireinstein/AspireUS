@@ -1,80 +1,80 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from '../styles/tutordashboard.module.css';
+import styles from '../styles/advisordashboard.module.css';
 
-export default function TutorDashboard() {
+export default function AdvisorDashboard() {
   const router = useRouter();
-  const { email: tutorEmail, id: tutorId } = router.query;
-  const [tutorData, setTutorData] = useState(null);
+  const { email: advisorEmail, id: advisorId } = router.query;
+  const [advisorData, setAdvisorData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("students"); // Default tab
+  const [activeTab, setActiveTab] = useState("students"); // default tab
 
   // ----- Dummy Data Section Start -----
-  // TODO: Replace this dummy data and setTimeout with an actual API call to fetch tutor data.
-  const dummyTutorData = {
-    firstName: "Jane",
-    lastName: "Smith",
-    email: tutorEmail || "jane.smith@example.com",
+  // TODO: Replace the dummy data and setTimeout with a real API call to fetch advisor data.
+  const dummyAdvisorData = {
+    firstName: "Emily",
+    lastName: "Johnson",
+    email: advisorEmail || "emily.johnson@example.com",
     services: [
       {
         id: "1",
-        serviceType: "SAT Prep",
-        description: "One-on-one tutoring sessions for SAT preparation.",
-        price: "$50/hr",
+        serviceType: "College Prep",
+        description: "Expert guidance on college applications.",
+        price: "$80/hr",
       },
       {
         id: "2",
-        serviceType: "College Prep",
-        description: "Personalized college application guidance.",
-        price: "$75/hr",
+        serviceType: "Essay Review",
+        description: "Detailed feedback on application essays.",
+        price: "$60/hr",
       },
     ],
     students: [
       {
         id: "1",
-        name: "John Doe",
-        email: "john.doe@example.com",
-        service: "SAT Prep",
+        name: "Mark Spencer",
+        email: "mark.spencer@example.com",
+        service: "College Prep",
       },
       {
         id: "2",
-        name: "Alice Johnson",
-        email: "alice.johnson@example.com",
+        name: "Lucy Brown",
+        email: "lucy.brown@example.com",
         service: "College Prep",
       },
     ],
     meetings: [
       {
         id: "1",
-        studentName: "John Doe",
-        scheduledTime: "2025-03-17T15:00:00Z",
+        studentName: "Mark Spencer",
+        scheduledTime: "2025-03-20T15:00:00Z",
       },
       {
         id: "2",
-        studentName: "Alice Johnson",
-        scheduledTime: "2025-03-18T10:00:00Z",
+        studentName: "Lucy Brown",
+        scheduledTime: "2025-03-22T10:00:00Z",
       },
     ],
   };
 
   useEffect(() => {
-    if (tutorEmail) {
-      // Dummy fetch simulation
+    if (advisorEmail) {
+      // Dummy fetch simulation using setTimeout
       setTimeout(() => {
-        setTutorData(dummyTutorData);
+        setAdvisorData(dummyAdvisorData);
         setLoading(false);
       }, 1000);
     }
-  }, [tutorEmail]);
+  }, [advisorEmail]);
   // ----- Dummy Data Section End -----
 
   /*
   // ----- Production Code Start -----
-  // TODO: Uncomment the following code to fetch real tutor data from your API endpoint.
+  // TODO: Uncomment and replace the following code with an actual API call.
   useEffect(() => {
-    if (tutorEmail) {
-      fetch(`/api/getTutorData?email=${encodeURIComponent(tutorEmail)}`)
+    if (advisorEmail) {
+      fetch(`/api/getAdvisorData?email=${encodeURIComponent(advisorEmail)}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -82,15 +82,15 @@ export default function TutorDashboard() {
           return res.json();
         })
         .then((data) => {
-          setTutorData(data);
+          setAdvisorData(data);
           setLoading(false);
         })
         .catch((err) => {
-          console.error("Error fetching tutor data:", err);
+          console.error("Error fetching advisor data:", err);
           setLoading(false);
         });
     }
-  }, [tutorEmail]);
+  }, [advisorEmail]);
   // ----- Production Code End -----
   */
 
@@ -99,20 +99,20 @@ export default function TutorDashboard() {
   };
 
   const handleAddService = () => {
-    // Navigate to addService.js, sending tutor's email as a query parameter.
-    router.push(`/addService?email=${encodeURIComponent(tutorEmail)}`);
+    // Navigate to addService.js, sending advisor's email as a query parameter.
+    router.push(`/addService?email=${encodeURIComponent(advisorEmail)}`);
   };
 
   if (loading) return <p className={styles.loading}>Loading...</p>;
-  if (!tutorData) return <p className={styles.error}>No tutor data found.</p>;
+  if (!advisorData) return <p className={styles.error}>No advisor data found.</p>;
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Tutor Dashboard - AspireUS</title>
+        <title>Advisor Dashboard - AspireUS</title>
       </Head>
       <header className={styles.header}>
-        <h1>Welcome, {tutorData.firstName}!</h1>
+        <h1>Welcome, {advisorData.firstName}!</h1>
       </header>
 
       {/* Tab Navigation */}
@@ -141,13 +141,14 @@ export default function TutorDashboard() {
       {activeTab === "students" && (
         <section className={styles.studentsSection}>
           <h2>My Students</h2>
-          {tutorData.students && tutorData.students.length > 0 ? (
+          {advisorData.students && advisorData.students.length > 0 ? (
             <div className={styles.studentsList}>
-              {tutorData.students.map((student) => (
+              {advisorData.students.map((student) => (
                 <div key={student.id} className={styles.studentCard}>
                   <h3>{student.name}</h3>
                   <p><strong>Email:</strong> {student.email}</p>
                   <p><strong>Service:</strong> {student.service}</p>
+                  {/* Chat button */}
                   <button
                     className={styles.chatButton}
                     onClick={() => (window.location.href = `mailto:${student.email}`)}
@@ -158,7 +159,7 @@ export default function TutorDashboard() {
               ))}
             </div>
           ) : (
-            <p className={styles.noStudents}>No students assigned yet.</p>
+            <p className={styles.noStudents}>No students currently assigned.</p>
           )}
         </section>
       )}
@@ -166,12 +167,15 @@ export default function TutorDashboard() {
       {activeTab === "meetings" && (
         <section className={styles.meetingsSection}>
           <h2>Upcoming Meetings</h2>
-          {tutorData.meetings && tutorData.meetings.length > 0 ? (
+          {advisorData.meetings && advisorData.meetings.length > 0 ? (
             <div className={styles.meetingsList}>
-              {tutorData.meetings.map((meeting) => (
+              {advisorData.meetings.map((meeting) => (
                 <div key={meeting.id} className={styles.meetingCard}>
                   <p><strong>Student:</strong> {meeting.studentName}</p>
-                  <p><strong>Time:</strong> {new Date(meeting.scheduledTime).toLocaleString()}</p>
+                  <p>
+                    <strong>Time:</strong> {new Date(meeting.scheduledTime).toLocaleString()}
+                  </p>
+                  {/* Meet button */}
                   <button
                     className={styles.meetButton}
                     onClick={() => alert("Initiate video call functionality here.")}
@@ -190,9 +194,9 @@ export default function TutorDashboard() {
       {activeTab === "services" && (
         <section className={styles.servicesSection}>
           <h2>My Services</h2>
-          {tutorData.services && tutorData.services.length > 0 ? (
+          {advisorData.services && advisorData.services.length > 0 ? (
             <div className={styles.servicesList}>
-              {tutorData.services.map((service) => (
+              {advisorData.services.map((service) => (
                 <div key={service.id} className={styles.serviceCard}>
                   <h3>{service.serviceType}</h3>
                   <p>{service.description}</p>

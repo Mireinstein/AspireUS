@@ -106,7 +106,7 @@ export default function GetStarted() {
     //   console.error('Registration error:', error);
     //   alert('Registration failed. Please try again.');
     // }
-    router.push(`/advisorDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
+    router.push(`/studentDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
 
   };
 
