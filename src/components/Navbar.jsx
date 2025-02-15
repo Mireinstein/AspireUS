@@ -18,13 +18,16 @@ const Navbar = () => {
       </div>
       <ul className={styles.navLinks}>
         <li>
-          <Link href="/dashboard">Sign Up</Link>
+          <Link href="/collegePrep.js">College Prep</Link>
         </li>
         <li>
-          <Link href="/dashboard">Login</Link>
+          <Link href="/satPrep.js">SAT Prep</Link>
         </li>
         <li>
-          <Link href="/dashboard">About US</Link>
+          <Link href="/about.js">About</Link>
+        </li>
+        <li>
+          <Link href="/founder.js">Meet Our Found</Link>
         </li>
       </ul>
     </nav>

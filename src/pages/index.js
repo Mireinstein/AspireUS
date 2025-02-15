@@ -16,9 +16,9 @@ export default function Home() {
           Transform Your Future with Aspire<span className={styles.red}>US</span>
         </h1>
         <p className={styles.subtitle}>
-          Simplify your college application process with our intelligent, AI-powered platform.
+          Simplify your college application process with the help of college admission experts and qualified SAT tutors
         </p>
-        <a href="/dashboard" className={styles.ctaButton}>Get Started</a>
+        <a href="/getStarted.js" className={styles.ctaButton}>Get Started</a>
       </main>
     </div>
   );
