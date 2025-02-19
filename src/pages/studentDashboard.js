@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styles from '../styles/studentdashboard.module.css';
 
+StudentDashboard.protected = true;
 export default function StudentDashboard() {
   const router = useRouter();
   const { email: studentEmail, id: studentId } = router.query;

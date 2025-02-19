@@ -1,11 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useMsal } from '@azure/msal-react';
 import Head from 'next/head';
 import styles from '../styles/getStarted.module.css';
 
+GetStarted.protected=true;
 export default function GetStarted() {
   const router = useRouter();
   const { id: userId, email: userEmail } = router.query;
+
+  // Access authenticated account info using MSAL
+  const { accounts } = useMsal();
+ 
+  // When the accounts array is populated, log the authenticated user's id
+  useEffect(() => {
+    if (accounts && accounts.length > 0) {
+      const account = accounts[0];
+      const signedUserId = account.homeAccountId || account.idTokenClaims?.sub;
+      console.log("Authenticated user id:", account);
+    }
+  }, [accounts]);
 
   const [countries, setCountries] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(true);
@@ -29,7 +43,7 @@ export default function GetStarted() {
     fetch('https://restcountries.com/v2/all')
       .then((res) => res.json())
       .then((data) => {
-        // Extract only the name property from each country object
+        // Extract only the country names and sort them
         const countryNames = data.map((country) => country.name).sort();
         setCountries(countryNames);
         setCountriesLoading(false);
@@ -65,7 +79,7 @@ export default function GetStarted() {
   };
 
   const handleVerifyPhone = () => {
-    // Basic regex for digits only, 10 to 15 digits long.
+    // Basic regex: only digits, 10 to 15 digits long
     const phoneRegex = /^[0-9]{10,15}$/;
     if (phoneRegex.test(formData.phone)) {
       setPhoneVerified(true);
@@ -85,29 +99,9 @@ export default function GetStarted() {
       email: userEmail,
       ...formData,
     };
-    // TODO:Uncomment this after creating the registerUser API and remove the dummy flow 
-    // try {
-    //   const res = await fetch(`/api/registerUser?role=${formData.role}`, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(payload),
-    //   });
-    //   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-    //   // Redirect based on role
-    //   if (formData.role === 'student') {
-    //     router.push(`/studentDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
-    //   } else if (formData.role === 'tutor') {
-    //     router.push(`/tutorDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
-    //   } else if (formData.role === 'advisor') {
-    //     router.push(`/advisorDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
-    //   }
-    // } catch (error) {
-    //   console.error('Registration error:', error);
-    //   alert('Registration failed. Please try again.');
-    // }
+    // Redirect after successful submission (dummy flow for now)
     router.push(`/studentDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
-
   };
 
   return (

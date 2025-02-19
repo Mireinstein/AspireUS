@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styles from '../styles/advisordashboard.module.css';
 
+AdvisorDashboard.protected=true;
 export default function AdvisorDashboard() {
   const router = useRouter();
   const { email: advisorEmail, id: advisorId } = router.query;
