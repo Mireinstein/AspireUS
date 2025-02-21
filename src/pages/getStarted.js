@@ -4,191 +4,110 @@ import { useMsal } from '@azure/msal-react';
 import Head from 'next/head';
 import styles from '../styles/getStarted.module.css';
 
-GetStarted.protected=true;
+// Mark this page as protected by auth.
+GetStarted.protected = true;
+
 export default function GetStarted() {
   const router = useRouter();
-  const { id: userId, email: userEmail } = router.query;
-
-  // Access authenticated account info using MSAL
   const { accounts } = useMsal();
- 
-  // When the accounts array is populated, log the authenticated user's id
+  const [decodedToken, setDecodedToken] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Function to decode a JWT token (without verifying signature).
+  function decodeJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  }
+
+  // When accounts are available, decode the token.
   useEffect(() => {
     if (accounts && accounts.length > 0) {
       const account = accounts[0];
-      const signedUserId = account.homeAccountId || account.idTokenClaims?.sub;
-      console.log("Authenticated user id:", account);
+      const idToken = account.idToken;
+      const decoded = decodeJwt(idToken);
+      setDecodedToken(decoded);
+      setLoading(false);
     }
   }, [accounts]);
 
-  const [countries, setCountries] = useState([]);
-  const [countriesLoading, setCountriesLoading] = useState(true);
-  const [countriesError, setCountriesError] = useState(null);
-
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    country: '',
-    phone: '',
-    role: '',
-    address: '',
-    termsAccepted: false,
-  });
-  const [errors, setErrors] = useState({});
-  const [phoneVerified, setPhoneVerified] = useState(false);
-  const [phoneVerificationMessage, setPhoneVerificationMessage] = useState('');
-
-  // Fetch countries from the API
+  // Once decoded, check the claims and either print info (if new) or redirect.
   useEffect(() => {
-    fetch('https://restcountries.com/v2/all')
-      .then((res) => res.json())
-      .then((data) => {
-        // Extract only the country names and sort them
-        const countryNames = data.map((country) => country.name).sort();
-        setCountries(countryNames);
-        setCountriesLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error fetching countries:', err);
-        setCountriesError('Failed to load countries');
-        setCountriesLoading(false);
+    if (!loading && decodedToken) {
+      console.log("Decoded token: ", decodedToken)
+      // Extract desired claims from the token.
+      const givenName = decodedToken.given_name || '';
+      const surname = decodedToken.family_surname || '';
+      const streetAddress = decodedToken.streetAddress || '';
+      // Assume the token includes a claim "student" (boolean or string)
+      const isStudent = decodedToken.extension_Student === true || decodedToken.extension_Student === 'true';
+      const email = decodedToken.emails[0] || '';
+      const city = decodedToken.city || '';
+      const countryRegion = decodedToken.country || '';
+      const userObjectId = decodedToken.oid || '';
+      const userIsNew = decodedToken.newUser === true || decodedToken.newUser=== 'true';
+
+      if (!userIsNew) {
+        // User is not new. Redirect based on student status.
+        if (isStudent) {
+          router.push(`/studentDashboard?id=${encodeURIComponent(userObjectId)}&email=${encodeURIComponent(email)}`);
+        } else {
+          router.push(`/tutorDashboard?id=${encodeURIComponent(userObjectId)}&email=${encodeURIComponent(email)}`);
+        }
+      }
+      // Otherwise, if the user is new, we simply render their info on this page.
+      // (Their info will also be logged in the console.)
+      console.log("User Info:", {
+        givenName,
+        surname,
+        streetAddress,
+        isStudent,
+        email,
+        city,
+        countryRegion,
+        userObjectId,
+        userIsNew,
       });
-  }, []);
-
-  const validate = () => {
-    let tempErrors = {};
-    if (!formData.firstName) tempErrors.firstName = 'First name is required';
-    if (!formData.lastName) tempErrors.lastName = 'Last name is required';
-    if (!userEmail) tempErrors.email = 'Email is required';
-    if (!formData.country) tempErrors.country = 'Country is required';
-    if (!formData.phone) tempErrors.phone = 'Phone number is required';
-    if (!phoneVerified) tempErrors.phoneVerified = 'Please verify your phone number';
-    if (!formData.role) tempErrors.role = 'Role selection is required';
-    if (!formData.address) tempErrors.address = 'Address is required';
-    if (!formData.termsAccepted) tempErrors.termsAccepted = 'You must accept the terms and conditions';
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
-
-  const handleVerifyPhone = () => {
-    // Basic regex: only digits, 10 to 15 digits long
-    const phoneRegex = /^[0-9]{10,15}$/;
-    if (phoneRegex.test(formData.phone)) {
-      setPhoneVerified(true);
-      setPhoneVerificationMessage('Phone number verified!');
-    } else {
-      setPhoneVerified(false);
-      setPhoneVerificationMessage('Invalid phone number. Please enter 10-15 digits.');
     }
-  };
+  }, [loading, decodedToken, router]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+  if (loading || !decodedToken) {
+    return <div>Loading...</div>;
+  }
 
-    const payload = {
-      id: userId,
-      email: userEmail,
-      ...formData,
-    };
-
-    // Redirect after successful submission (dummy flow for now)
-    router.push(`/studentDashboard?id=${userId}&email=${encodeURIComponent(userEmail)}`);
+  // If we reach this point, the user is new so we display their info.
+  const userInfo = {
+    "Given Name": decodedToken.given_name || '',
+    "Surname": decodedToken.family_surname|| '',
+    "Street Address": decodedToken.streetAddress|| '',
+    "Student": decodedToken.extension_Student || false,
+    "Email Address": decodedToken.emails[0] || '',
+    "City": decodedToken.city || '',
+    "Country/Region": decodedToken.country || decodedToken.countryOrRegion || '',
+    "User Object ID": decodedToken.oid || '',
+    "User is new": decodedToken.newUser || false,
   };
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>AspireUS - Get Started</title>
-        <meta
-          name="description"
-          content="Join AspireUS and build your profile to connect with college advisors and tutors."
-        />
+        <title>AspireUS - New User Info</title>
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.welcomeMessage}>Welcome to AspireUS</h1>
-        <p className={styles.brandMessage}>
-          Build your profile to unlock your future. Whether you're a student, tutor, or advisor, join our community and connect with experts.
-        </p>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <label>
-            First Name: <span className={styles.required}>*</span>
-            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
-            {errors.firstName && <span className={styles.error}>{errors.firstName}</span>}
-          </label>
-          <label>
-            Last Name: <span className={styles.required}>*</span>
-            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
-            {errors.lastName && <span className={styles.error}>{errors.lastName}</span>}
-          </label>
-          <label>
-            Verified Email:
-            <input type="email" name="email" value={userEmail || ''} disabled />
-            {errors.email && <span className={styles.error}>{errors.email}</span>}
-          </label>
-          <label>
-            Country: <span className={styles.required}>*</span>
-            {countriesLoading ? (
-              <p>Loading countries...</p>
-            ) : countriesError ? (
-              <p className={styles.error}>{countriesError}</p>
-            ) : (
-              <select name="country" value={formData.country} onChange={handleChange} required>
-                <option value="">-- Select Country --</option>
-                {countries.map((country) => (
-                  <option key={country} value={country}>
-                    {country}
-                  </option>
-                ))}
-              </select>
-            )}
-            {errors.country && <span className={styles.error}>{errors.country}</span>}
-          </label>
-          <label>
-            Phone Number: <span className={styles.required}>*</span>
-            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
-            <button type="button" onClick={handleVerifyPhone} className={styles.verifyButton}>
-              Verify Phone
-            </button>
-            {phoneVerificationMessage && <span className={styles.verificationMessage}>{phoneVerificationMessage}</span>}
-            {errors.phone && <span className={styles.error}>{errors.phone}</span>}
-            {errors.phoneVerified && <span className={styles.error}>{errors.phoneVerified}</span>}
-          </label>
-          <label>
-            Role: <span className={styles.required}>*</span>
-            <select name="role" value={formData.role} onChange={handleChange} required>
-              <option value="">-- Select Role --</option>
-              <option value="student">Student</option>
-              <option value="tutor">Tutor</option>
-              <option value="advisor">Advisor</option>
-            </select>
-            {errors.role && <span className={styles.error}>{errors.role}</span>}
-          </label>
-          <label>
-            Address: <span className={styles.required}>*</span>
-            <textarea name="address" value={formData.address} onChange={handleChange} required />
-            {errors.address && <span className={styles.error}>{errors.address}</span>}
-          </label>
-          <label className={styles.termsLabel}>
-            <input type="checkbox" name="termsAccepted" checked={formData.termsAccepted} onChange={handleChange} required />
-            <span>
-              I accept the <a href="/terms">Terms and Conditions</a> <span className={styles.required}>*</span>
-            </span>
-            {errors.termsAccepted && <span className={styles.error}>{errors.termsAccepted}</span>}
-          </label>
-
-          <button type="submit" className={styles.submitButton}>
-            Submit
-          </button>
-        </form>
+        <h1>New User Information</h1>
+        <ul>
+          {Object.entries(userInfo).map(([key, value]) => (
+            <li key={key}>
+              <strong>{key}:</strong> {value.toString()}
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   );
