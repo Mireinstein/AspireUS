@@ -51,7 +51,7 @@ export default function GetStarted() {
       const countryRegion = decodedToken.country || '';
       const userObjectId = decodedToken.oid || '';
       const userIsNew = decodedToken.newUser === true || decodedToken.newUser === 'true';
-
+      console.log("User object ID: ", userObjectId);
       if (!userIsNew) {
         // If the user already exists, redirect based on role.
         alert("User is not new")
@@ -63,7 +63,6 @@ export default function GetStarted() {
       } else {
         
         // User is new: build the payload.
-        // TODO:Here, profilePhotoUrl is set to an empty string. In a full implementation, you’d upload the image to Blob Storage first.
         const payload = {
           givenName,
           surname,
@@ -72,7 +71,6 @@ export default function GetStarted() {
           city,
           countryRegion,
           userObjectId,
-          profilePhotoUrl: 'www.profilephoto.com' 
         };
         // Choose the appropriate endpoint based on the student flag.
         const registerEndpoint = isStudent ? '/api/registerStudent' : '/api/registerTutor';

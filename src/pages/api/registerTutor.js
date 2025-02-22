@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { givenName, surname, streetAddress, email, city, countryRegion, userObjectId, profilePhotoUrl } = req.body;
+  const { givenName, surname, streetAddress, email, city, countryRegion, userObjectId} = req.body;
 
   // Basic validation: ensure required fields are present.
   if (!givenName || !surname || !email || !userObjectId) {
@@ -45,7 +45,6 @@ export default async function handler(req, res) {
       email,
       city,
       countryRegion,
-      profilePhotoUrl: profilePhotoUrl || "",
       createdAt: new Date().toISOString()
     };
 
