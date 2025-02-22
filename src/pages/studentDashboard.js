@@ -90,7 +90,7 @@ export default function StudentDashboard() {
   const meetingHistory = studentData.meetingHistory;
   const messages = studentData.messages;
 
-  // Parse meetingHistory (it is stored as a JSON string) into an array.
+  // Parse meetingHistory (stored as JSON) into an array.
   const meetingsArray = parseMeetingHistory(meetingHistory);
   // Optionally, you can also filter for upcoming or past meetings:
   const upcomingMeetings = filterMeetings(meetingHistory, true);
@@ -146,27 +146,8 @@ export default function StudentDashboard() {
           <h2>My Booked Services</h2>
           {meetingsArray && meetingsArray.length > 0 ? (
             <div className={styles.servicesList}>
-              {meetingsArray.map((service, idx) => (
-                <div key={service.id ? service.id : idx} className={styles.serviceCard}>
-                  <h3>{service.serviceType}</h3>
-                  <p><strong>Provider:</strong> {service.providerName}</p>
-                  <p>
-                    <strong>Status:</strong>{" "}
-                    <span className={`${styles.statusBadge} ${styles[service.Status.toLowerCase()]}`}>
-                      {service.Status}
-                    </span>
-                  </p>
-                  <p>
-                    <strong>Scheduled:</strong>{" "}
-                    {new Date(service.scheduledTime || service.ScheduledTime).toLocaleString()}
-                  </p>
-                  <button
-                    className={styles.chatButton}
-                    onClick={() => window.location.href = `mailto:${service.providerEmail}`}
-                  >
-                    Chat
-                  </button>
-                </div>
+              {meetingsArray.map((meeting, idx) => (
+                <MeetingCard key={meeting.id ? meeting.id : idx} meeting={meeting} fetchTutorData={fetchTutorData} />
               ))}
             </div>
           ) : (
@@ -199,7 +180,7 @@ export default function StudentDashboard() {
   );
 }
 
-// MeetingCard component for future extension (currently not used in the mapping above).
+// MeetingCard component that fetches and displays tutor info for a meeting.
 function MeetingCard({ meeting, fetchTutorData }) {
   const [tutorInfo, setTutorInfo] = useState(null);
 
@@ -214,32 +195,42 @@ function MeetingCard({ meeting, fetchTutorData }) {
   }, [meeting.providerID, fetchTutorData]);
 
   return (
-    <div className={styles.meetingCard}>
+    <div className={styles.serviceCard}>
+      <h3>{meeting.serviceType}</h3>
       <p><strong>Service:</strong> {meeting.service}</p>
-      <p><strong>Service Type:</strong> {meeting.serviceType}</p>
-      <p><strong>Status:</strong> {meeting.Status}</p>
+      <p>
+        <strong>Status:</strong>{" "}
+        <span className={`${styles.statusBadge} ${styles[meeting.Status.toLowerCase()]}`}>
+          {meeting.Status}
+        </span>
+      </p>
       <p>
         <strong>Scheduled:</strong>{" "}
         {new Date(meeting.scheduledTime || meeting.ScheduledTime).toLocaleString()}
       </p>
-      {tutorInfo && (
-        <div className={styles.tutorInfo}>
-          <img 
-            src={tutorInfo.profilePhotoUrl || '/default-profile.png'} 
-            alt="Tutor Profile" 
-            className={styles.tutorPhoto}
-          />
-          <div className={styles.tutorDetails}>
-            <p><strong>Tutor Bio:</strong> {tutorInfo.bio}</p>
-            <p><strong>Email:</strong> {tutorInfo.email}</p>
-            <button 
-              className={styles.chatButton}
-              onClick={() => window.location.href = `mailto:${tutorInfo.email}`}
-            >
-              Chat
-            </button>
+      {tutorInfo ? (
+        <>
+          <p><strong>Provider:</strong> {tutorInfo.givenName} {tutorInfo.surname}</p>
+          <div className={styles.tutorInfo}>
+            <img 
+              src={tutorInfo.profilePhotoUrl || '/default-profile.png'} 
+              alt="Tutor Profile" 
+              className={styles.tutorPhoto}
+            />
+            <div className={styles.tutorDetails}>
+              <p><strong>Tutor Bio:</strong> {tutorInfo.bio}</p>
+              <p><strong>Email:</strong> {tutorInfo.email}</p>
+              <button 
+                className={styles.chatButton}
+                onClick={() => window.location.href = `mailto:${tutorInfo.email}`}
+              >
+                Chat
+              </button>
+            </div>
           </div>
-        </div>
+        </>
+      ) : (
+        <p>Loading provider info...</p>
       )}
     </div>
   );
