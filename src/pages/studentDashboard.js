@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useMsal } from '@azure/msal-react';
 import styles from '../styles/studentdashboard.module.css';
 
 // Mark this page as protected by auth.
@@ -42,6 +43,7 @@ function fileToBase64(file) {
 export default function StudentDashboard() {
   const router = useRouter();
   const { email: studentEmail, id: studentId } = router.query;
+  const { instance } = useMsal();
   const [studentData, setStudentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("profile");
@@ -58,6 +60,13 @@ export default function StudentDashboard() {
   });
   const [selectedFile, setSelectedFile] = useState(null);
   const [updatingProfile, setUpdatingProfile] = useState(false);
+
+  // Logout handler that redirects to home page.
+  const handleLogout = () => {
+    instance.logoutRedirect({
+      postLogoutRedirectUri: "/"
+    });
+  };
 
   // Fetch student record from your API endpoint using the studentId.
   useEffect(() => {
@@ -211,6 +220,7 @@ export default function StudentDashboard() {
       </Head>
       <header className={styles.header}>
         <h1>Welcome, {givenName}!</h1>
+        <button className={styles.logoutButton} onClick={handleLogout}>Logout</button>
       </header>
       
       {/* Tab Navigation */}
