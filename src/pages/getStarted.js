@@ -54,7 +54,6 @@ export default function GetStarted() {
       console.log("User object ID: ", userObjectId);
       if (!userIsNew) {
         // If the user already exists, redirect based on role.
-        alert("User is not new")
         if (isStudent) {
           router.push(`/studentDashboard?id=${encodeURIComponent(userObjectId)}&email=${encodeURIComponent(email)}`);
         } else {

@@ -1,4 +1,19 @@
 import { TableClient } from "@azure/data-tables";
+import { BlobServiceClient } from "@azure/storage-blob";
+
+// Helper: Convert a readable stream to a buffer.
+async function streamToBuffer(readableStream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    readableStream.on("data", (data) => {
+      chunks.push(data instanceof Buffer ? data : Buffer.from(data));
+    });
+    readableStream.on("end", () => {
+      resolve(Buffer.concat(chunks));
+    });
+    readableStream.on("error", reject);
+  });
+}
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -17,7 +32,6 @@ export default async function handler(req, res) {
     const tableClient = TableClient.fromConnectionString(connectionString, tableName);
 
     let entity = null;
-    // If role is provided, use it as the PartitionKey.
     if (role) {
       try {
         entity = await tableClient.getEntity(role, uid);
@@ -28,7 +42,6 @@ export default async function handler(req, res) {
         }
       }
     } else {
-      // If no role is provided, try "student" then "tutor"
       try {
         entity = await tableClient.getEntity("student", uid);
       } catch (err) {
@@ -53,6 +66,29 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // If the user record has a profilePhotoUrl, download the blob content and convert to a data URI.
+    if (entity.profilePhotoUrl) {
+      try {
+        const urlObj = new URL(entity.profilePhotoUrl);
+        // Expected URL format: 
+        // https://{account}.blob.core.windows.net/{container}/{blobName}/{filename}
+        const pathParts = urlObj.pathname.split('/');
+        // pathParts[0] is empty; pathParts[1] is the container; the rest form the blob name (including filename)
+        const containerName = pathParts[1];
+        const blobName = pathParts.slice(2).join('/');
+        const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+        const containerClient = blobServiceClient.getContainerClient(containerName);
+        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+        const downloadResponse = await blockBlobClient.download(0);
+        const buffer = await streamToBuffer(downloadResponse.readableStreamBody);
+        // Assume JPEG; you may determine content type dynamically.
+        const base64Image = buffer.toString('base64');
+        entity.profilePhotoUrl = `data:image/jpeg;base64,${base64Image}`;
+      } catch (error) {
+        console.error("Error downloading profile photo:", error);
+      }
+    }
+
     // Build a trimmed user object with only the desired attributes.
     const user = {
       givenName: entity.givenName,
@@ -63,7 +99,7 @@ export default async function handler(req, res) {
       countryRegion: entity.countryRegion,
       bio: entity.bio,
       profilePhotoUrl: entity.profilePhotoUrl,
-      meetingHistory: entity.meetingHistory, // Assume this is stored as JSON already
+      meetingHistory: entity.meetingHistory, // assume stored as JSON or string
       messages: entity.messages,
       userObjectId: entity.rowKey, // Unique user id stored in rowKey
     };

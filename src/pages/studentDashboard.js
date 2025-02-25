@@ -29,6 +29,16 @@ function filterMeetings(meetingHistory, isUpcoming = true) {
   });
 }
 
+// Helper: Convert a File object to a base64 data URL.
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
 export default function StudentDashboard() {
   const router = useRouter();
   const { email: studentEmail, id: studentId } = router.query;
@@ -36,6 +46,18 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("profile");
   const [tutorCache, setTutorCache] = useState({});
+  
+  // New state for editing profile.
+  const [editingProfile, setEditingProfile] = useState(false);
+  const [editValues, setEditValues] = useState({
+    givenName: '',
+    surname: '',
+    countryRegion: '',
+    streetAddress: '',
+    bio: '',
+  });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [updatingProfile, setUpdatingProfile] = useState(false);
 
   // Fetch student record from your API endpoint using the studentId.
   useEffect(() => {
@@ -56,6 +78,19 @@ export default function StudentDashboard() {
     }
   }, [studentId]);
 
+  // When studentData is loaded, initialize the edit form values.
+  useEffect(() => {
+    if (studentData) {
+      setEditValues({
+        givenName: studentData.givenName || '',
+        surname: studentData.surname || '',
+        countryRegion: studentData.countryRegion || '',
+        streetAddress: studentData.streetAddress || '',
+        bio: studentData.bio || '',
+      });
+    }
+  }, [studentData]);
+
   // Helper to fetch tutor data by providerID, caching the result.
   const fetchTutorData = useCallback(async (providerID) => {
     if (tutorCache[providerID]) return tutorCache[providerID];
@@ -75,13 +110,87 @@ export default function StudentDashboard() {
     router.push(`/bookService?email=${encodeURIComponent(studentEmail)}`);
   };
 
+  // Handle changes in the edit form fields.
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditValues(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Handle file input change.
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  // Handle profile update submission.
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    setUpdatingProfile(true);
+    
+    // Convert the selected file to base64 if a file is chosen.
+    let profilePhotoData = "";
+    let profilePhotoExtension = "";
+    if (selectedFile) {
+      try {
+        profilePhotoData = await fileToBase64(selectedFile);
+        // Extract extension from file name.
+        const fileName = selectedFile.name;
+        profilePhotoExtension = fileName.substring(fileName.lastIndexOf('.'));
+      } catch (error) {
+        console.error("Error converting file to base64:", error);
+      }
+    }
+    
+    // Prepare updated data payload.
+    const updatedData = {
+      uid: studentId,
+      partition: "student",
+      givenName: editValues.givenName,
+      surname: editValues.surname,
+      countryRegion: editValues.countryRegion,
+      streetAddress: editValues.streetAddress,
+      bio: editValues.bio,
+      // Pass the newly uploaded photo data (if any) for the API to handle.
+      profilePhotoData,  
+      profilePhotoExtension,
+    };
+
+    // Call API endpoint to update the user record.
+    try {
+      const res = await fetch('/api/updateUser', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
+      });
+      const result = await res.json();
+      if (result.success) {
+        // Refresh the student data.
+        setStudentData(prev => ({ ...prev, 
+          givenName: editValues.givenName,
+          surname: editValues.surname,
+          countryRegion: editValues.countryRegion,
+          streetAddress: editValues.streetAddress,
+          bio: editValues.bio,
+          profilePhotoUrl: result.profilePhotoUrl || prev.profilePhotoUrl,
+        }));
+        setEditingProfile(false);
+        setSelectedFile(null);
+      } else {
+        console.error("Update failed:", result.error);
+      }
+    } catch (err) {
+      console.error("Error updating profile:", err);
+    }
+    setUpdatingProfile(false);
+  };
+
   if (loading) return <p className={styles.loading}>Loading...</p>;
   if (!studentData) return <p className={styles.error}>No student data found.</p>;
 
   // Destructure the attributes we care about.
-  console.log("student data: ", studentData);
   const givenName = studentData.givenName;
-  const lastName = studentData.surname; // Adjust if your data uses a different key (e.g. family_surname).
+  const lastName = studentData.surname;
   const email = studentData.email;
   const country = studentData.countryRegion;
   const address = studentData.streetAddress;
@@ -92,7 +201,6 @@ export default function StudentDashboard() {
 
   // Parse meetingHistory (stored as JSON) into an array.
   const meetingsArray = parseMeetingHistory(meetingHistory);
-  // Optionally, you can also filter for upcoming or past meetings:
   const upcomingMeetings = filterMeetings(meetingHistory, true);
   const pastMeetings = filterMeetings(meetingHistory, false);
 
@@ -130,14 +238,98 @@ export default function StudentDashboard() {
       {/* Tab Content */}
       {activeTab === "profile" && (
         <section className={styles.profileSection}>
-          <div className={styles.profileCard}>
-            <h2>Your Profile</h2>
-            <p><strong>Name:</strong> {givenName} {lastName}</p>
-            <p><strong>Email:</strong> {email}</p>
-            <p><strong>Country:</strong> {country}</p>
-            <p><strong>Address:</strong> {address}</p>
-            {bio && <p><strong>Bio:</strong> {bio}</p>}
-          </div>
+          {editingProfile ? (
+            <form className={styles.profileCard} onSubmit={handleProfileUpdate}>
+              <h2>Edit Your Profile</h2>
+              <div className={styles.editField}>
+                <label>Given Name:</label>
+                <input
+                  type="text"
+                  name="givenName"
+                  value={editValues.givenName}
+                  onChange={handleEditChange}
+                  required
+                />
+              </div>
+              <div className={styles.editField}>
+                <label>Surname:</label>
+                <input
+                  type="text"
+                  name="surname"
+                  value={editValues.surname}
+                  onChange={handleEditChange}
+                  required
+                />
+              </div>
+              <div className={styles.editField}>
+                <label>Country/Region:</label>
+                <input
+                  type="text"
+                  name="countryRegion"
+                  value={editValues.countryRegion}
+                  onChange={handleEditChange}
+                  required
+                />
+              </div>
+              <div className={styles.editField}>
+                <label>Street Address:</label>
+                <input
+                  type="text"
+                  name="streetAddress"
+                  value={editValues.streetAddress}
+                  onChange={handleEditChange}
+                  required
+                />
+              </div>
+              <div className={styles.editField}>
+                <label>Bio:</label>
+                <textarea
+                  name="bio"
+                  value={editValues.bio}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className={styles.editField}>
+                <label>Profile Photo:</label>
+                <input type="file" onChange={handleFileChange} accept="image/*" />
+              </div>
+              <div className={styles.editActions}>
+                <button type="submit" className={styles.bookButton} disabled={updatingProfile}>
+                  {updatingProfile ? "Saving..." : "Save Changes"}
+                </button>
+                <button
+                  type="button"
+                  className={styles.chatButton}
+                  onClick={() => setEditingProfile(false)}
+                  disabled={updatingProfile}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className={styles.profileCard}>
+              <h2>Your Profile</h2>
+              {profilePhotoUrl ? (
+                <img src={profilePhotoUrl} alt="Profile Photo" className={styles.profilePhoto} />
+              ) : (
+                <div className={styles.noPhoto}>
+                  <p>No profile photo</p>
+                  <button className={styles.chatButton} onClick={() => setEditingProfile(true)}>
+                    Add Profile Photo
+                  </button>
+                </div>
+              )}
+              <p><strong>Name:</strong> {givenName} {lastName}</p>
+              <p><strong>Email:</strong> {email}</p>
+              <p><strong>Country:</strong> {country}</p>
+              <p><strong>Address:</strong> {address}</p>
+              {bio && <p><strong>Bio:</strong> {bio}</p>}
+              <button className={styles.bookButton} onClick={() => setEditingProfile(true)}>
+                Edit Profile
+              </button>
+            </div>
+          )}
         </section>
       )}
       
@@ -196,39 +388,35 @@ function MeetingCard({ meeting, fetchTutorData }) {
 
   return (
     <div className={styles.serviceCard}>
-      <h3>{meeting.serviceType}</h3>
-      <p><strong>Service:</strong> {meeting.service}</p>
-      <p>
-        <strong>Status:</strong>{" "}
-        <span className={`${styles.statusBadge} ${styles[meeting.Status.toLowerCase()]}`}>
-          {meeting.Status}
-        </span>
-      </p>
-      <p>
-        <strong>Scheduled:</strong>{" "}
-        {new Date(meeting.scheduledTime || meeting.ScheduledTime).toLocaleString()}
-      </p>
+      <div className={styles.meetingDetails}>
+        <h3>{meeting.serviceType}</h3>
+        <p>
+          <strong>Status:</strong>{" "}
+          <span className={`${styles.statusBadge} ${styles[meeting.Status.toLowerCase()]}`}>
+            {meeting.Status}
+          </span>
+        </p>
+        <p>
+          <strong>Scheduled:</strong>{" "}
+          {new Date(meeting.scheduledTime || meeting.ScheduledTime).toLocaleString()}
+        </p>
+        {tutorInfo && <p><strong>Provider:</strong> {tutorInfo.givenName} {tutorInfo.surname}</p>}
+      </div>
       {tutorInfo ? (
-        <>
-          <p><strong>Provider:</strong> {tutorInfo.givenName} {tutorInfo.surname}</p>
-          <div className={styles.tutorInfo}>
-            <img 
-              src={tutorInfo.profilePhotoUrl || '/default-profile.png'} 
-              alt="Tutor Profile" 
-              className={styles.tutorPhoto}
-            />
-            <div className={styles.tutorDetails}>
-              <p><strong>Tutor Bio:</strong> {tutorInfo.bio}</p>
-              <p><strong>Email:</strong> {tutorInfo.email}</p>
-              <button 
-                className={styles.chatButton}
-                onClick={() => window.location.href = `mailto:${tutorInfo.email}`}
-              >
-                Chat
-              </button>
-            </div>
-          </div>
-        </>
+        <div className={styles.tutorSection}>
+          <img 
+            src={tutorInfo.profilePhotoUrl || '/default-profile.png'} 
+            alt="Tutor Profile" 
+            className={styles.tutorPhoto}
+          />
+          <p className={styles.tutorBio}>{tutorInfo.bio}</p>
+          <button 
+            className={styles.chatButton}
+            onClick={() => window.location.href = `mailto:${tutorInfo.email}`}
+          >
+            Chat
+          </button>
+        </div>
       ) : (
         <p>Loading provider info...</p>
       )}
