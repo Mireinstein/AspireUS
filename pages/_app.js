@@ -6,8 +6,7 @@ import Footer from "../components/Footer";
 
 
 function MyApp({ Component, pageProps }) {
-
-    <Component {...pageProps} />;
+  const content =<Component {...pageProps} />;
 
   return (
     <>
