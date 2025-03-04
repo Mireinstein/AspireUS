@@ -35,6 +35,7 @@ export default function Home() {
       <section className={styles.teamSection}>
         <h2 className={styles.teamTitle}>Meet the Team</h2>
         <div className={styles.teamGrid}>
+            {/* TODO: ADD ACTUAL TEAM MEMBER IMAGES */}
           <div className={styles.teamMember}>
             {/* Replace src with your actual team member image URLs */}
             <img 
