@@ -28,8 +28,12 @@
     line-height: 1.2;
   }
   
-  .aspireText {
-    color: #CF2332; /* or any brand color you prefer */
+  .brandBlue {
+    color: #2196F3; /* Blue for "Aspire" */
+  }
+  
+  .brandRed {
+    color: #D32F2F; /* Red for "USA" */
   }
   
   .heroSubtext {

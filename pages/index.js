@@ -15,7 +15,8 @@ export default function Home() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroHeading}>
             Transform Your Future with{' '}
-            <span className={styles.aspireText}>AspireUSA</span>
+            <span className={styles.brandBlue}>Aspire</span>
+            <span className={styles.brandRed}>USA</span>
           </h1>
           <p className={styles.heroSubtext}>
             Unlock your future with personalized guidance and expert support 

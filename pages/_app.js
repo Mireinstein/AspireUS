@@ -6,12 +6,8 @@ import Footer from "../components/Footer";
 
 
 function MyApp({ Component, pageProps }) {
-  // If the page is marked as protected, wrap it in the AuthGuard.
-  const content = Component.protected ? (
-      <Component {...pageProps} />
-  ) : (
-    <Component {...pageProps} />
-  );
+
+    <Component {...pageProps} />;
 
   return (
     <>
