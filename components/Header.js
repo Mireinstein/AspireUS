@@ -8,14 +8,14 @@ export default function Header() {
     <header className={styles.navbar}>
       {/* Logo Section */}
       <div className={styles.logoContainer}>
-        {/* Replace `/images/aspireusa_logo.png` with your actual logo path */}
-        <Image
-          src="/aspireUS.svg"
-          alt="AspireUSA"
-          width={120}
-          height={40}
-          priority
-        />
+        <Link href="/">
+          <Image 
+            src="/aspireUS.svg" 
+            alt="AspireUS Logo" 
+            width={200}
+            height={75}    
+          />
+        </Link>
       </div>
 
       {/* Navigation Links */}
@@ -29,7 +29,7 @@ export default function Header() {
         <Link href="/contact" legacyBehavior>
           <a className={styles.navLink}>Contact</a>
         </Link>
-        <Link href="/book" legacyBehavior>
+        <Link href="/services" legacyBehavior>
           <a className={styles.bookBtn}>Book now</a>
         </Link>
       </nav>
