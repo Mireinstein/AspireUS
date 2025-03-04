@@ -1,0 +1,46 @@
+.navbar {
+    background-color: #031835; /* Dark navy background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem; /* Adjust horizontal spacing as needed */
+    height: 80px;    /* Fixed navbar height */
+  }
+  
+  .logoContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navMenu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navLink {
+    margin-right: 2rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+  }
+  
+  .navLink:hover {
+    opacity: 0.7;
+  }
+  
+  .bookBtn {
+    background-color: #2196F3; /* Blue button color */
+    color: #ffffff;
+    border: none;
+    border-radius: 999px; /* Fully rounded edges */
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bookBtn:hover {
+    background-color: #1b7fcc; /* Slightly darker on hover */
+  }
+  
