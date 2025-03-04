@@ -5,9 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 import { PublicClientApplication } from "@azure/msal-browser";
-import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "../../msalConfig";
-import AuthGuard from "../components/AuthGuard";
 
 // Create your MSAL instance
 const msalInstance = new PublicClientApplication(msalConfig);
@@ -23,14 +21,14 @@ function MyApp({ Component, pageProps }) {
   );
 
   return (
-    <MsalProvider instance={msalInstance}>
-      <Head>
+    <>
+    <Head>
         <link rel="icon" href="/aspireUS.svg" />
       </Head>
       <Navbar />
       <main>{content}</main>
       <Footer />
-    </MsalProvider>
+    </>
   );
 }
 
