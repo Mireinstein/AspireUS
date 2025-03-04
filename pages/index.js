@@ -40,32 +40,41 @@ export default function Home() {
           <div className={styles.teamMember}>
             {/* Replace src with your actual team member image URLs */}
             <img 
-              src="/Admire.jpg"
-              alt="Admire Madyira"
+              src="/sheila_mushoriwa.jpg"
+              alt="Sheila Mushoriwa"
               className={styles.memberImage}
             />
-            <h3 className={styles.memberName}>Admire Madyira</h3>
-            <p className={styles.memberRole}>Founder</p>
+            <h3 className={styles.memberName}>Sheila Mushoriwa</h3>
+            <p className={styles.memberRole}>Student at Havard</p>
           </div>
 
           <div className={styles.teamMember}>
             <img 
-              src="/Marius.jpg"
-              alt="Marius Cotorobai"
+              src="/jason_mnguti.jpg"
+              alt="Jason Mnguti"
               className={styles.memberImage}
             />
-            <h3 className={styles.memberName}>Marius Cotorobai</h3>
-            <p className={styles.memberRole}>Tutor</p>
+            <h3 className={styles.memberName}>Jason Mnguti</h3>
+            <p className={styles.memberRole}>Student at MIT</p>
           </div>
 
           <div className={styles.teamMember}>
             <img 
-              src="/Cesaire.jpg"
-              alt="Cesaire Mugishawayo"
+              src="/carol_smith.jpg"
+              alt="Carol Smith"
               className={styles.memberImage}
             />
-            <h3 className={styles.memberName}>Cesaire Mugishawayo</h3>
-            <p className={styles.memberRole}>IT Director</p>
+            <h3 className={styles.memberName}>Carol Smith</h3>
+            <p className={styles.memberRole}>Student at Williams College</p>
+          </div>
+          <div className={styles.teamMember}>
+            <img 
+              src="/dan_qi.jpg"
+              alt="Dan Qi"
+              className={styles.memberImage}
+            />
+            <h3 className={styles.memberName}>Dan Qi</h3>
+            <p className={styles.memberRole}>Student at Pomona college</p>
           </div>
         </div>
       </section>
