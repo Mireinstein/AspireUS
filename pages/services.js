@@ -29,7 +29,6 @@ export default function Services() {
             className={styles.cardImage}
           />
           <h2>Hourly Consultation</h2>
-          <p className={styles.price}>$75</p>
           <p className={styles.cardDescription}>
             Personalized, one-on-one sessions designed to tackle your specific questions and challenges.
           </p>
@@ -53,7 +52,6 @@ export default function Services() {
             className={styles.cardImage}
           />
           <h2>Per College support</h2>
-          <p className={styles.price}>$750</p>
           <p className={styles.cardDescription}>
             Tailored assistance focused on maximizing the impact of your application for a specific college.
           </p>
@@ -78,7 +76,6 @@ export default function Services() {
             className={styles.cardImage}
           />
           <h2>Comprehensive support</h2>
-          <p className={styles.price}>$3750</p>
           <p className={styles.cardDescription}>
             An end-to-end service covering every step of your college application journey for up to five institutions.
           </p>
