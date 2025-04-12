@@ -39,7 +39,9 @@ export default function Services() {
             <li>Q&#38;A session addressing any immediate concerns</li>
             <li>Follow-up recommendations and action items</li>
           </ul>
-          <button className={styles.bookButton}>Book now</button>
+          <a href="/book">
+           <button className={styles.bookButton}>Book now</button>
+          </a>
         </div>
 
         {/* Per College Support */}
@@ -63,7 +65,9 @@ export default function Services() {
             <li>Recommendations on supplemental materials</li>
             <li>A personalized action plan to enhance your application</li>
           </ul>
-          <button className={styles.bookButton}>Book now</button>
+          <a href="/book">
+           <button className={styles.bookButton}>Book now</button>
+          </a>
         </div>
 
         {/* Comprehensive Support */}
@@ -88,13 +92,17 @@ export default function Services() {
             <li>Regular check-ins and progress tracking</li>
             <li>Access to checklists, templates, and additional resources</li>
           </ul>
-          <button className={styles.bookButton}>Book now</button>
+          <a href="/book">
+           <button className={styles.bookButton}>Book now</button>
+          </a>
         </div>
       </section>
 
       {/*  Free Consultation Button  */}
       <div className={styles.consultationContainer}>
+        <a href="/book">
         <button className={styles.freeConsultationButton}>Book free consultation</button>
+        </a>
       </div>
 
       {/*  Contact Section with Wave & 2-column layout  */}

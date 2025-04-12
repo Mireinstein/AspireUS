@@ -16,8 +16,10 @@
     "@azure/msal-browser": "^4.3.0",
     "@azure/msal-react": "^3.0.5",
     "@azure/storage-blob": "^12.26.0",
+    "formidable": "^3.5.2",
     "jsonwebtoken": "^9.0.2",
     "next": "latest",
+    "nodemailer": "^6.10.0",
     "react": "latest",
     "react-dom": "latest"
   }
