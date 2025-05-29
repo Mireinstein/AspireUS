@@ -29,7 +29,6 @@ export default function Services() {
             className={styles.cardImage}
           />
           <h2>Hourly Consultation</h2>
-          <p className={styles.price}>$75</p>
           <p className={styles.cardDescription}>
             Personalized, one-on-one sessions designed to tackle your specific questions and challenges.
           </p>
@@ -40,7 +39,9 @@ export default function Services() {
             <li>Q&#38;A session addressing any immediate concerns</li>
             <li>Follow-up recommendations and action items</li>
           </ul>
-          <button className={styles.bookButton}>Book now</button>
+          <a href="/book">
+           <button className={styles.bookButton}>Book now</button>
+          </a>
         </div>
 
         {/* Per College Support */}
@@ -53,7 +54,6 @@ export default function Services() {
             className={styles.cardImage}
           />
           <h2>Per College support</h2>
-          <p className={styles.price}>$750</p>
           <p className={styles.cardDescription}>
             Tailored assistance focused on maximizing the impact of your application for a specific college.
           </p>
@@ -65,7 +65,9 @@ export default function Services() {
             <li>Recommendations on supplemental materials</li>
             <li>A personalized action plan to enhance your application</li>
           </ul>
-          <button className={styles.bookButton}>Book now</button>
+          <a href="/book">
+           <button className={styles.bookButton}>Book now</button>
+          </a>
         </div>
 
         {/* Comprehensive Support */}
@@ -78,7 +80,6 @@ export default function Services() {
             className={styles.cardImage}
           />
           <h2>Comprehensive support</h2>
-          <p className={styles.price}>$3750</p>
           <p className={styles.cardDescription}>
             An end-to-end service covering every step of your college application journey for up to five institutions.
           </p>
@@ -91,13 +92,17 @@ export default function Services() {
             <li>Regular check-ins and progress tracking</li>
             <li>Access to checklists, templates, and additional resources</li>
           </ul>
-          <button className={styles.bookButton}>Book now</button>
+          <a href="/book">
+           <button className={styles.bookButton}>Book now</button>
+          </a>
         </div>
       </section>
 
       {/*  Free Consultation Button  */}
       <div className={styles.consultationContainer}>
+        <a href="/book">
         <button className={styles.freeConsultationButton}>Book free consultation</button>
+        </a>
       </div>
 
       {/*  Contact Section with Wave & 2-column layout  */}
