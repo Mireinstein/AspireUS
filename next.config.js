@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-  trailingSlash: true, // Optional, improves compatibility with static hosts
-}
+const repoName = 'AspireUS'; // <- Change this to match your GitHub repo name
 
-module.exports = nextConfig
+const nextConfig = {
+  output: 'export', // Export static HTML
+  trailingSlash: true, // Ensures each page has its own folder with index.html
+
+  images: {
+    unoptimized: true, // Disable Image Optimization (which requires a server)
+  },
+
+  basePath: `/${repoName}`, // Base path for assets and routes
+  assetPrefix: `/${repoName}/`, // Ensures static assets are found correctly
+};
+
+module.exports = nextConfig;
