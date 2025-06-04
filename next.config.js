@@ -10,7 +10,7 @@ const nextConfig = {
   },
 
   basePath: `/${repoName}`, // Base path for assets and routes
-  assetPrefix: `/${repoName}/`, // Ensures static assets are found correctly
+  assetPrefix: `/${repoName}/docs/`, // Ensures static assets are found correctly
 };
 
 module.exports = nextConfig;
