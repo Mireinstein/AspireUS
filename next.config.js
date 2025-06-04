@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const repoName = 'AspireUS'; // <- Change this to match your GitHub repo name
+// const repoName = 'AspireUS'; // <- Change this to match your GitHub repo name
 
 const nextConfig = {
   output: 'export', // Export static HTML
@@ -9,8 +9,8 @@ const nextConfig = {
     unoptimized: true, // Disable Image Optimization (which requires a server)
   },
 
-  basePath: `/${repoName}`, // Base path for assets and routes
-  assetPrefix: `/docs/`, // Ensures static assets are found correctly
+  basePath: ``, // Base path for assets and routes
+  // assetPrefix: `/docs/`, // Ensures static assets are found correctly
 };
 
 module.exports = nextConfig;
