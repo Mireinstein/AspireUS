@@ -11,7 +11,7 @@ export default function Services() {
         <h1>Our Services</h1>
         <p>
           Our services provide personalized advice, strategic solutions, and actionable insights
-          designed to elevate your application. Let our experienced professionals guide you through
+          designed to elevate your application. We will guide you through
           every step—from selecting the right institutions to crafting compelling essays—ensuring
           you present your best self to top U.S. colleges and universities.
         </p>
@@ -104,96 +104,6 @@ export default function Services() {
         <button className={styles.freeConsultationButton}>Book free consultation</button>
         </a>
       </div>
-
-      {/*  Contact Section with Wave & 2-column layout  */}
-      <section className={styles.contactSection}>
-        <div className={styles.contactContent}>
-          {/* Left Side: Intro */}
-          <div className={styles.contactIntro}>
-            <h2>Contact us</h2>
-            <p>
-              Interested in working together? Fill out some info and we will
-              be in touch shortly. We can’t wait to hear from you!
-            </p>
-          </div>
-
-          {/* Right Side: Form */}
-          <form className={styles.contactForm}>
-            {/* Name Row */}
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="firstName">
-                  First Name <span style={{ color: '#ff5555' }}>(required)</span>
-                </label>
-                <input
-                  id="firstName"
-                  type="text"
-                  required
-                  placeholder="First Name"
-                />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="lastName">
-                  Last Name <span style={{ color: '#ff5555' }}>(required)</span>
-                </label>
-                <input
-                  id="lastName"
-                  type="text"
-                  required
-                  placeholder="Last Name"
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className={styles.formRow}>
-              <div className={styles.formGroupFull}>
-                <label htmlFor="email">
-                  Email <span style={{ color: '#ff5555' }}>(required)</span>
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  placeholder="Your Email"
-                />
-              </div>
-            </div>
-
-            {/* Sign up checkbox */}
-            <div className={styles.formRow}>
-              <div className={styles.signupGroup}>
-                <input
-                  id="newsUpdates"
-                  type="checkbox"
-                />
-                <label htmlFor="newsUpdates">Sign up for news and updates</label>
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className={styles.formRow}>
-              <div className={styles.formGroupFull}>
-                <label htmlFor="message">
-                  Message <span style={{ color: '#ff5555' }}>(required)</span>
-                </label>
-                <textarea
-                  id="message"
-                  rows="5"
-                  required
-                  placeholder="Your message here"
-                />
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <button type="submit" className={styles.submitButton}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </section>
 
     </div>
   );
