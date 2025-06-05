@@ -33,12 +33,12 @@ export default function Home() {
       </section>
 
       {/* TEAM SECTION */}
-      <section className={styles.teamSection}>
+      {/* <section className={styles.teamSection}>
         <h2 className={styles.teamTitle}>Meet the Team</h2>
         <div className={styles.teamGrid}>
-            {/* TODO: ADD ACTUAL TEAM MEMBER IMAGES */}
+            TODO: ADD ACTUAL TEAM MEMBER IMAGES
           <div className={styles.teamMember}>
-            {/* Replace src with your actual team member image URLs */}
+            Replace src with your actual team member image URLs
             <img 
               src="/sheila_mushoriwa.jpg"
               alt="Sheila Mushoriwa"
@@ -77,7 +77,7 @@ export default function Home() {
             <p className={styles.memberRole}>Student at Pomona college</p>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   )
 }
