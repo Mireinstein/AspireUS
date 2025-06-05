@@ -1,46 +1,84 @@
 .navbar {
-    background-color: #031835; /* Dark navy background */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem; 
-    height: 80px;    /* Fixed navbar height */
+  background-color: #031835;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 80px;
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Default desktop menu */
+.navMenu {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  margin-right: 2rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.navLink:hover {
+  opacity: 0.7;
+}
+
+.bookBtn {
+  background-color: #2196F3;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.bookBtn:hover {
+  background-color: #1b7fcc;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    height: auto;
   }
-  
-  .logoContainer {
-    display: flex;
-    align-items: center;
-  }
-  
+
   .navMenu {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
   }
-  
+
   .navLink {
-    margin-right: 2rem;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.5rem;
-    transition: opacity 0.3s ease;
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
   }
-  
-  .navLink:hover {
-    opacity: 0.7;
-  }
-  
+
   .bookBtn {
-    background-color: #2196F3; /* Blue button color */
-    color: #ffffff;
-    border: none;
-    border-radius: 999px; /* Fully rounded edges */
-    padding: 0.5rem 1.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
+    align-self: flex-start;
+    margin-top: 0.5rem;
   }
-  
-  .bookBtn:hover {
-    background-color: #1b7fcc; /* Slightly darker on hover */
+}
+
+@media (max-width: 600px) {
+  .navLink {
+    font-size: 1.1rem;
   }
-  
+
+  .bookBtn {
+    font-size: 0.95rem;
+    padding: 0.4rem 1.2rem;
+  }
+}

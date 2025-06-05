@@ -1,238 +1,267 @@
 .aboutContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0 auto;
-    font-family: sans-serif;
-  }
-  
-  /* ========== ABOUT SECTION ========== */
-  .aboutSection {
-    /* Use flex layout with align-items: stretch to make columns the same height */
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    gap: 2rem;
-    padding: 2rem 1rem;
-    background-color: #f5f5f5;
-  }
-  
-  /* LEFT COLUMN (Image) */
-  .imageWrapper {
-    /* Let the wrapper fill half the space, with relative positioning
-       so the Next.js Image (layout="fill") can occupy the entire area. */
-    flex: 1;
-    position: relative; 
-    min-height: 400px; /* ensures we have some initial height for the image */
-  }
-  
-  /* Next.js <Image> that fills the wrapper completely. */
-  .aboutImage {
-    /* border-radius (optional) */
-    border-radius: 4px;
-  }
-  
-  /* RIGHT COLUMN (Text) */
-  .storyWrapper {
-    /* Also flex:1 to share space with the image. */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* vertically center its content if desired */
-    max-width: 600px;
-    color: #333;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+
+/* ========== ABOUT SECTION ========== */
+.aboutSection {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  background-color: #f5f5f5;
+}
+
+.imageWrapper {
+  flex: 1;
+  position: relative;
+  min-height: 400px;
+}
+
+.aboutImage {
+  border-radius: 4px;
+}
+
+.storyWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+  color: #333;
+}
+
+.title {
+  font-size: 3rem;
+  color: #8e44ad;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.storyWrapper h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.storyWrapper ul {
+  list-style: disc inside;
+  margin-bottom: 1rem;
+}
+
+.browseButton {
+  background-color: #3498ef;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.browseButton:hover {
+  background-color: #2980cc;
+}
+
+/* ========== CONTACT SECTION ========== */
+.contactSection {
+  position: relative;
+  background-color: #0b1930;
+  color: #ffffff;
+  padding: 4rem 2rem;
+  margin-top: 2rem;
+}
+
+.contactSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to right, #3498ef, #3498ef);
+  border-bottom-right-radius: 50% 20px;
+  border-bottom-left-radius: 50% 20px;
+}
+
+.contactContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contactIntro {
+  flex: 1;
+  max-width: 500px;
+  margin-right: 1rem;
+}
+
+.contactIntro h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.contactIntro p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contactForm {
+  flex: 1;
+  max-width: 600px;
+  background: transparent;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formGroup,
+.signupGroup,
+.formGroupFull {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.formGroupFull {
+  width: 100%;
+}
+
+.formGroup label,
+.signupGroup label {
+  margin-bottom: 0.3rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroupFull textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+}
+
+.signupGroup {
+  align-self: center;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.7rem;
+}
+
+.signupGroup label {
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.submitButton {
+  background-color: #3498ef;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.submitButton:hover {
+  background-color: #2980cc;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+@media (max-width: 1024px) {
   .title {
-    font-size: 3rem;
-    color: #8e44ad;
-    text-align: center; /* horizontally center the heading */
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
   }
-  
-  .storyWrapper h3 {
-    font-size: 1.25rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+
+  .contactIntro h2 {
+    font-size: 2rem;
   }
-  
-  .storyWrapper ul {
-    list-style: disc inside;
-    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
   }
-  
-  .browseButton {
-    background-color: #3498ef;
-    color: #fff;
-    border: none;
-    padding: 0.75rem 1rem;
-    margin-top: 1rem;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .browseButton:hover {
-    background-color: #2980cc;
-  }
-  
-  /* ========== CONTACT SECTION ========== */
-  .contactSection {
-    position: relative;
-    background-color: #0b1930; /* Dark navy */
-    color: #ffffff;
-    padding: 4rem 2rem;
-    margin-top: 2rem;
-  }
-  
-  /* (Optional) wave shape at top of contact section */
-  .contactSection::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+
+  .imageWrapper {
     width: 100%;
-    height: 80px;
-    background: linear-gradient(to right, #3498ef, #3498ef);
-    border-bottom-right-radius: 50% 20px;
-    border-bottom-left-radius: 50% 20px;
+    min-height: 300px;
   }
-  
-  /* WRAPPER: 2 columns for contact content: text (left), form (right) */
+
+  .storyWrapper {
+    margin-top: 2rem;
+    max-width: 100%;
+  }
+
   .contactContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative; /* above the wave shape */
-    z-index: 1;
+    flex-direction: column;
     gap: 2rem;
   }
-  
-  /* LEFT: Intro text */
+
+  .contactForm,
   .contactIntro {
-    flex: 1;
-    max-width: 500px;
-    margin-right: 1rem;
+    max-width: 100%;
+    margin-right: 0;
   }
-  
-  .contactIntro h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .contactIntro p {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  /* RIGHT: Form */
-  .contactForm {
-    flex: 1;
-    max-width: 600px;
-    background: transparent;
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  
-  /* Form layout */
+
   .formRow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .formGroup,
-  .signupGroup,
-  .formGroupFull {
-    display: flex;
     flex-direction: column;
-    flex: 1;
-    min-width: 200px;
   }
-  
-  .formGroupFull {
+
+  .submitButton {
     width: 100%;
   }
-  
-  .formGroup label,
-  .signupGroup label {
-    margin-bottom: 0.3rem;
-    color: #ffffff;
-    font-weight: 500;
+
+  .signupGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1rem;
   }
-  
+
+  .browseButton {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .contactIntro h2 {
+    font-size: 1.75rem;
+  }
+
   .formGroup input[type="text"],
   .formGroup input[type="email"],
   .formGroupFull textarea {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
+    font-size: 0.95rem;
   }
-  
-  .signupGroup {
-    align-self: center;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1.7rem; /* aligns with the input above */
-  }
-  
-  .signupGroup label {
-    margin-bottom: 0;
-    color: #fff;
-  }
-  
-  /* Submit button */
+
   .submitButton {
-    background-color: #3498ef;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
-    font-size: 1rem;
-    color: #ffffff;
-    cursor: pointer;
-    margin-top: 1rem;
+    font-size: 0.95rem;
   }
-  
-  .submitButton:hover {
-    background-color: #2980cc;
-  }
-  
-  /* ========== RESPONSIVE ADJUSTMENTS ========== */
-  @media (max-width: 768px) {
-    .aboutSection {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .imageWrapper {
-      width: 100%;
-      min-height: 300px; /* reduce for smaller screens if desired */
-    }
-  
-    .storyWrapper {
-      margin-top: 2rem;
-      max-width: 100%;
-    }
-  
-    .contactContent {
-      flex-direction: column;
-    }
-  
-    .contactForm,
-    .contactIntro {
-      margin-right: 0;
-      max-width: 100%;
-    }
-  
-    .formRow {
-      flex-direction: column;
-    }
-  
-    .signupGroup {
-      margin-top: 0;
-    }
-  }
-  
+}

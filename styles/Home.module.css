@@ -1,63 +1,59 @@
-/* HERO SECTION STYLES */
+/* --- HERO SECTION STYLES --- */
 .heroSection {
-    /* Use your background image */
-    background: url('/background-photo.jpg') no-repeat center center;
-    background-size: cover;
-    min-height: 80vh;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  
-    /* Overlay effect (optional) */
-    position: relative;
-    color: #ffffff;
-    padding: 2rem;
-  }
-  
-  .heroContent {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .heroHeading {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-  }
-  
-  .brandBlue {
-    color: #2196F3; /* Blue for "Aspire" */
-  }
-  
-  .brandRed {
-    color: #D32F2F; /* Red for "USA" */
-  }
-  
-  .heroSubtext {
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-  }
-  
-  .ctaButton {
-    margin-top: 2rem;
-    background-color: #2F80ED;
-    color: #ffffff;
-    padding: 0.75rem 1.75rem;
-    border: none;
-    border-radius: 999px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .ctaButton:hover {
-    background-color: #2463b8;
-  }
-  
- /* TEAM SECTION STYLES */
+  background: url('/background-photo.jpg') no-repeat center center;
+  background-size: cover;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  color: #ffffff;
+  padding: 2rem;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroHeading {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.brandBlue {
+  color: #2196F3;
+}
+
+.brandRed {
+  color: #D32F2F;
+}
+
+.heroSubtext {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.ctaButton {
+  margin-top: 2rem;
+  background-color: #2F80ED;
+  color: #ffffff;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ctaButton:hover {
+  background-color: #2463b8;
+}
+
+/* --- TEAM SECTION STYLES --- */
 .teamSection {
   background-color: #ffffff;
   padding: 4rem 2rem;
@@ -80,6 +76,7 @@
 .teamMember {
   background-color: #fff;
   max-width: 250px;
+  width: 100%;
   text-align: center;
   padding: 1.5rem;
   border-radius: 8px;
@@ -89,9 +86,9 @@
 
 .memberImage {
   width: 100%;
-  height: auto; /* maintains aspect ratio */
-  object-fit: cover; 
-  border-radius: 4px; /* small rounded corners */
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .memberName {
@@ -104,4 +101,71 @@
 .memberRole {
   font-size: 0.95rem;
   color: #666666;
+}
+
+/* --- RESPONSIVE BREAKPOINTS --- */
+@media (max-width: 1024px) {
+  .heroHeading {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtext {
+    font-size: 1rem;
+  }
+
+  .ctaButton {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .teamTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .heroHeading {
+    font-size: 2rem;
+  }
+
+  .heroSubtext {
+    font-size: 0.95rem;
+  }
+
+  .teamGrid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .teamMember {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroHeading {
+    font-size: 1.6rem;
+  }
+
+  .ctaButton {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  .teamTitle {
+    font-size: 1.5rem;
+  }
+
+  .memberName {
+    font-size: 1.1rem;
+  }
+
+  .memberRole {
+    font-size: 0.85rem;
+  }
 }

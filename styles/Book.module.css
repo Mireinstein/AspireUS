@@ -1,47 +1,94 @@
-/* styles/Booking.module.css */
 .bookingContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.bookingForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.submitButton {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #005bb5;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+  .bookingContainer {
+    padding: 1.5rem 1rem;
   }
-  
-  .bookingForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-  }
-  
+
   .formGroup label {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+    font-size: 0.95rem;
   }
-  
+
   .formGroup input,
   .formGroup select,
   .formGroup textarea {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 0.95rem;
+    padding: 0.45rem;
   }
-  
+
   .submitButton {
-    padding: 0.75rem;
-    font-size: 1rem;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0.65rem;
   }
-  
-  .submitButton:hover {
-    background-color: #005bb5;
+}
+
+@media (max-width: 480px) {
+  .bookingContainer {
+    padding: 1rem 0.75rem;
   }
-  
+
+  .formGroup label {
+    font-size: 0.9rem;
+  }
+
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  .submitButton {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+}
