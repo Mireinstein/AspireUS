@@ -1,16 +1,8 @@
-/** @type {import('next').NextConfig} */
-// const repoName = 'AspireUS'; // <- Change this to match your GitHub repo name
+// next.config.js
+const isGithubPages = process.env.NODE_ENV === 'production';
 
-const nextConfig = {
-  output: 'export', // Export static HTML
-  trailingSlash: true, // Ensures each page has its own folder with index.html
-
-  images: {
-    unoptimized: true, // Disable Image Optimization (which requires a server)
-  },
-
-  basePath: ``, // Base path for assets and routes
-  // assetPrefix: `/docs/`, // Ensures static assets are found correctly
+module.exports = {
+  output: 'export',
+  basePath: isGithubPages ? '/your-repo-name' : '',
+  assetPrefix: isGithubPages ? '/your-repo-name/' : '',
 };
-
-module.exports = nextConfig;
