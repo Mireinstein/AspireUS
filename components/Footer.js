@@ -21,8 +21,8 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <p className={styles.contactInfo}>info@aspireUSA.com</p>
-          <p className={styles.contactInfo}>(555) 555-5555</p>
+          <p className={styles.contactInfo}>admiretmadyira@gmail.com</p>
+          {/* <p className={styles.contactInfo}>(555) 555-5555</p> */}
         </div>
 
         {/* Right Section */}

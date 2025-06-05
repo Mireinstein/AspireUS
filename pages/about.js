@@ -115,20 +115,20 @@ export default function About() {
       </section>
 
       {/* ---- CONTACT SECTION ---- */}
-      <section className={styles.contactSection}>
+      {/* <section className={styles.contactSection}>
         <div className={styles.contactContent}>
 
           {/* LEFT: Contact intro text */}
-          <div className={styles.contactIntro}>
+          {/* <div className={styles.contactIntro}>
             <h2>Contact us</h2>
             <p>
               Interested in working together? Fill out some info and we will 
               be in touch shortly. We can’t wait to hear from you!
             </p>
-          </div>
+          </div> */}
 
           {/* RIGHT: Contact form */}
-          <form className={styles.contactForm} onSubmit={handleSubmit}>
+          {/* <form className={styles.contactForm} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label htmlFor="firstName">First Name (required)</label>
@@ -152,9 +152,9 @@ export default function About() {
                   required 
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className={styles.formRow}>
+            {/* <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email (required)</label>
                 <input 
@@ -196,8 +196,8 @@ export default function About() {
               Submit
             </button>
           </form>
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */} 
     </div>
   )
 }
