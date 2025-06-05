@@ -39,7 +39,7 @@ export default function Services() {
             <li>Q&#38;A session addressing any immediate concerns</li>
             <li>Follow-up recommendations and action items</li>
           </ul>
-          <a href="/book">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-Fx2aMZnFimO_ZcglaGWR9bIMbkrPqOogNdui1bFzHFOtOg/viewform">
            <button className={styles.bookButton}>Book now</button>
           </a>
         </div>
@@ -65,7 +65,7 @@ export default function Services() {
             <li>Recommendations on supplemental materials</li>
             <li>A personalized action plan to enhance your application</li>
           </ul>
-          <a href="/book">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-Fx2aMZnFimO_ZcglaGWR9bIMbkrPqOogNdui1bFzHFOtOg/viewform">
            <button className={styles.bookButton}>Book now</button>
           </a>
         </div>
@@ -92,7 +92,7 @@ export default function Services() {
             <li>Regular check-ins and progress tracking</li>
             <li>Access to checklists, templates, and additional resources</li>
           </ul>
-          <a href="/book">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-Fx2aMZnFimO_ZcglaGWR9bIMbkrPqOogNdui1bFzHFOtOg/viewform">
            <button className={styles.bookButton}>Book now</button>
           </a>
         </div>
@@ -100,7 +100,7 @@ export default function Services() {
 
       {/*  Free Consultation Button  */}
       <div className={styles.consultationContainer}>
-        <a href="/book">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-Fx2aMZnFimO_ZcglaGWR9bIMbkrPqOogNdui1bFzHFOtOg/viewform">
         <button className={styles.freeConsultationButton}>Book free consultation</button>
         </a>
       </div>
