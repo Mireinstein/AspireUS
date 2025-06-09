@@ -14,6 +14,9 @@ export default function Services() {
           designed to elevate your application. We will guide you through
           every step—from selecting the right institutions to crafting compelling essays—ensuring
           you present your best self to top U.S. colleges and universities.
+          <p style={{ color: 'red', fontWeight: 'bold' }}>
+            N.B : This is not a scholarship service, we do not provide scholarships. We help you apply to colleges that offer you scholarships.
+          </p>
         </p>
       </section>
 
