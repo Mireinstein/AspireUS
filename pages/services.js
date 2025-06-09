@@ -101,7 +101,7 @@ export default function Services() {
       {/*  Free Consultation Button  */}
       <div className={styles.consultationContainer}>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-Fx2aMZnFimO_ZcglaGWR9bIMbkrPqOogNdui1bFzHFOtOg/viewform">
-        <button className={styles.freeConsultationButton}>Book free consultation</button>
+        <button className={styles.freeConsultationButton}>Apply</button>
         </a>
       </div>
 
