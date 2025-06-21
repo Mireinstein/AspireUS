@@ -27,7 +27,7 @@ export default function Home() {
             we’re here to make the process as smooth and stress-free as possible.
           </p>
           <Link href="/services">
-            <button className={styles.ctaButton}>Learn more</button>
+            <button className={styles.ctaButton}>Apply Now</button>
           </Link>
         </div>
       </section>
